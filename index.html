@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+    <script defer src="logic.js"></script>
+  </head>
+  <body>
+    <div class="calendar_view">
+      <div class="month">
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+
+        <ul>
+          <li class="month_current">August</li>
+          <br />
+          <li class="year_current">2021</li>
+        </ul>
+      </div>
+
+      <ul class="weekdays">
+        <li>Mo</li>
+        <li>Tu</li>
+        <li>We</li>
+        <li>Th</li>
+        <li>Fr</li>
+        <li>Sa</li>
+        <li>Su</li>
+      </ul>
+
+      <ul class="days">
+        <!-- <div></div>
+        <li class='days_no'>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li><span class="active">10</span></li>
+        <li>11</li>
+        <li>11</li>
+        <li>11</li>
+      </ul> -->
+    </div>
+
+    <div class="add_event">
+      <form id="form" action="">
+        <label>Title</label>
+        <input id="title" type="text" placeholder="Enter event title" />
+
+        <label>Date</label>
+        <input id="date" type="date" placeholder="Enter event title" />
+
+        <label>Start time</label>
+        <input id="start_date" type="time" placeholder="Enter event title" />
+
+        <label>End time</label>
+        <input id="end_date" type="date" placeholder="Enter event title" />
+
+        <label>Type</label>
+        <select id="type" name="cars">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="fiat">Fiat</option>
+          <option value="audi">Audi</option>
+        </select>
+
+        <label>Description</label>
+        <textarea
+          id="description"
+          type="text"
+          name="message"
+          rows="10"
+          cols="30"
+          form="form"
+        >
+        </textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
