@@ -1,5 +1,7 @@
 "use strict";
 
+//////////////EVENT STATE
+
 const months = [
   "January",
   "February",
@@ -24,14 +26,15 @@ let yearNow = new Date(Date.now()).getFullYear();
 let monthNow = new Date(Date.now()).getMonth();
 currYear.textContent = yearNow;
 currMonth.textContent = months[monthNow];
-
 let amountOfDays = 32 - new Date(yearNow, monthNow, 32).getDate();
 
 const renderDays = () => {
+  // days.textContent = "";
   for (let i = 1; i <= amountOfDays; i++) {
-    let li = document.createElement("li");
+    let li = document.createElement("div");
     li.setAttribute("data-day", new Date(yearNow, monthNow, i));
     li.textContent = i;
+    li.classList.add("day");
     days.appendChild(li);
   }
 };
@@ -47,44 +50,27 @@ const renderMonth = () => {
     } else monthNow++;
     currMonth.textContent = months[monthNow];
 
-    days.textContent = "";
-    const amountOfDays = 32 - new Date(yearNow, monthNow, 32).getDate();
+    amountOfDays = 32 - new Date(yearNow, monthNow, 32).getDate();
 
-    for (let i = 1; i <= amountOfDays; i++) {
-      let li = document.createElement("li");
-      li.setAttribute("data-day", new Date(yearNow, monthNow, i));
-      li.textContent = i;
-      days.appendChild(li);
-    }
+    renderDays();
   });
 
   btnPrev.addEventListener("click", () => {
-    currYear.textContent = yearNow;
-    console.log(monthNow);
-    console.log(yearNow);
-
     if (monthNow == 0) yearNow--;
     currYear.textContent = yearNow;
     if (monthNow == 0) {
       monthNow = 11;
     } else monthNow--;
     currMonth.textContent = months[monthNow];
+    amountOfDays = 32 - new Date(yearNow, monthNow, 32).getDate();
 
-    days.textContent = "";
-    const amountOfDays = 32 - new Date(yearNow, monthNow, 32).getDate();
-
-    console.log(amountOfDays);
-
-    for (let i = 1; i <= amountOfDays; i++) {
-      let li = document.createElement("li");
-      li.textContent = i;
-      days.appendChild(li);
-    }
+    renderDays();
   });
 };
 
 renderMonth();
 
+////////////////////EVENT STATE//////////////////////////////////////////////////
 const events = [];
 
 const eventData = {
@@ -95,8 +81,6 @@ const eventData = {
   type: "dropdown",
   description: "60mins",
 };
-
-console.log(events);
 
 const form = document.getElementById("form");
 const date = document.getElementById("date");
@@ -117,24 +101,19 @@ form.addEventListener("submit", (e) => {
     type: type.value,
     description: description.value,
   });
-  console.log(events);
+
   renderEventInCalendar();
 });
 
-const b = document.querySelectorAll("li");
+const b = document.querySelectorAll(".day");
+console.log(b);
 
 const renderEventInCalendar = () => {
   b.forEach((val) => {
     if (val.dataset.day == events.date) {
       val.classList.add("active");
     }
-    console.log(val.dataset.day);
-    console.log(events.date);
   });
 };
 
-console.log(b);
 renderEventInCalendar();
-
-console.log(b);
-console.log(events);

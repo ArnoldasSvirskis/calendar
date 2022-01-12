@@ -79,7 +79,7 @@ body {
   margin: 0;
 }
 
-.days li {
+.day {
   list-style-type: none;
   display: inline-block;
   width: 13.6%;
