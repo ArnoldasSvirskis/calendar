@@ -17,28 +17,19 @@ const months = [
   "December",
 ];
 
-const weekDays = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
-
 const currMonth = document.querySelector(".month_current");
 const currYear = document.querySelector(".year_current");
 const days = document.querySelector(".days");
 const btnPrev = document.querySelector(".prev");
 const btnNext = document.querySelector(".next");
+const calendar = document.querySelector(".calendar_view");
 let yearNow = new Date(Date.now()).getFullYear();
 let monthNow = new Date(Date.now()).getMonth();
 currYear.textContent = yearNow;
 currMonth.textContent = months[monthNow];
 let amountOfDays = 32 - new Date(yearNow, monthNow, 32).getDate();
 
-const renderDays = () => {
+const renderCalendarDays = () => {
   days.textContent = "";
   let firstDayOfMonth = new Date(yearNow, monthNow, 1).getDay();
 
@@ -48,20 +39,20 @@ const renderDays = () => {
       emptyBlock.classList.add("empty");
       days.appendChild(emptyBlock);
     } else {
-      let li = document.createElement("div");
-      li.setAttribute(
+      let day = document.createElement("div");
+      day.setAttribute(
         "data-day",
         new Date(yearNow, monthNow, i + 1 - firstDayOfMonth)
       );
 
-      li.textContent = i + 1 - firstDayOfMonth;
-      li.classList.add("day");
-      days.appendChild(li);
+      day.textContent = i + 1 - firstDayOfMonth;
+      day.classList.add("day");
+      days.appendChild(day);
     }
   }
 };
 
-renderDays();
+renderCalendarDays();
 
 const renderMonth = () => {
   btnNext.addEventListener("click", () => {
@@ -74,7 +65,8 @@ const renderMonth = () => {
 
     amountOfDays = 32 - new Date(yearNow, monthNow, 32).getDate();
 
-    renderDays();
+    renderCalendarDays();
+    showFormModal();
   });
 
   btnPrev.addEventListener("click", () => {
@@ -86,7 +78,8 @@ const renderMonth = () => {
     currMonth.textContent = months[monthNow];
     amountOfDays = 32 - new Date(yearNow, monthNow, 32).getDate();
 
-    renderDays();
+    renderCalendarDays();
+    showFormModal();
   });
 };
 
@@ -111,6 +104,7 @@ const startDate = document.getElementById("start_date");
 const endDate = document.getElementById("end_date");
 const type = document.getElementById("type");
 const description = document.getElementById("description");
+const btnDelete = document.querySelector(".btn_delete");
 let clicked = "";
 let daysNodeList = document.querySelectorAll(".day");
 
@@ -118,7 +112,6 @@ const submitForm = (id) => {
   clicked = id;
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log(clicked);
 
     events.push({
       id: id,
@@ -131,6 +124,7 @@ const submitForm = (id) => {
     });
 
     loadEvent();
+    renderDetailsView();
 
     console.log(events);
   });
@@ -155,20 +149,44 @@ showFormModal();
 const loadEvent = () => {
   daysNodeList.forEach((day) => {
     events.forEach((val) => {
-      console.log(val.id);
-      console.log(day.dataset.day);
-      console.log(day);
-
       if (String(val.id) == String(day.dataset.day)) {
-        console.log("true");
-        day.classList.add("super");
+        let eventEl = document.createElement("div");
+        eventEl.classList.add(val.type);
+        eventEl.classList.add("active_events");
+        day.appendChild(eventEl);
+        eventEl.textContent = val.title;
+        eventEl.setAttribute("data-id", val.id);
+
+        day.classList.add("active");
       }
     });
   });
 };
 
-// const f = "Thu Jan 06 2022 00:00:00 GMT+0200 (Eastern European Standard Time)";
-// const g = "Thu Jan 06 2022 00:00:00 GMT+0200 (Eastern European Standard Time)";
+const renderDetailsView = () => {
+  document.querySelectorAll(".active_events").forEach((event) => {
+    console.log(event);
 
-// if (f == g) console.log("true");
-// else console.log("false");
+    event.addEventListener("click", () => {
+      const findEvent = events.find((val) => val.id == event.dataset.id);
+      console.log(findEvent);
+
+      calendar.insertAdjacentHTML(
+        "afterend",
+        `<div class="event_details"> 
+      <h2>${findEvent.title}</h2>
+      <b>Date:  <br /> Start time: <br /> End time: <br /> </h3>
+        <p>Description</p>
+        
+    </div>`
+      );
+      deleteEvent();
+    });
+  });
+};
+
+const deleteEvent = () => {
+  btnDelete.addEventListener("click", () => {
+    console.log(btnDelete.parentElement.dataset.id);
+  });
+};

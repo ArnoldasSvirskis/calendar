@@ -43,6 +43,13 @@
         <div class="day">00</div>
       </ul>
     </div>
+    <button class="btn_delete">Delete</button>
+
+    <div class="event_details hidden"> 
+      <h2>Meeting title</h2>
+      <b>Date:  <br /> Start time: <br /> End time: <br /> </h3>
+        <p>Description</p>
+    </div>
 
     <div class="form_modal hidden false">
       <form class="add_event" id="form" action="">
@@ -59,11 +66,11 @@
         <input id="end_date" type="date" placeholder="Enter event title" />
 
         <label>Type</label>
-        <select id="type" name="cars">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="fiat">Fiat</option>
-          <option value="audi">Audi</option>
+        <select id="type" name="events">
+          <option value="Meeting">Meeting</option>
+          <option value="Call">Call</option>
+          <option value="Out of office">Out of office</option>
+          
         </select>
 
         <label>Description</label>

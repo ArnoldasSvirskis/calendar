@@ -81,13 +81,20 @@ body {
 }
 
 .day {
+  margin: 2px;
   list-style-type: none;
   display: inline-block;
   width: 13.6%;
+  height: 80px;
   text-align: center;
   margin-bottom: 5px;
   font-size: 12px;
   color: #777;
+  border: 1px solid darkgrey;
+}
+
+.day:hover {
+  background: cornsilk;
 }
 
 /* Highlight the "current" day */
@@ -109,12 +116,18 @@ body {
 }
 
 .empty {
+  margin: 2px;
+
   background: khaki;
   list-style-type: none;
   display: inline-block;
-  width: 13.6%;
+  width: 138px;
   text-align: center;
   margin-bottom: 5px;
   font-size: 12px;
   color: #777;
+}
+
+.btn_delete {
+  display: none;
 }
